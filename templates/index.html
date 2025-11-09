@@ -32,11 +32,12 @@
     <div>Noch</div>
     <div class="big">{{ days_remaining }}</div>
     <div>Tage</div>
+    {% if show_hr_min %}
     <div class="mid">{{ hours_remaining }}</div>
     <div>Stunden und</div>
     <div class="smal">{{ minutes_remaining }}</div>
     <div>Minuten</div>
-    <div> </div>
+    {% endif %}
     <div class="row muted">
       Bis: {{ target.astimezone().strftime("%d.%m.%Y %H:%M %Z") }}
       {% if start %} • Start: {{ start.astimezone().strftime("%d.%m.%Y %H:%M %Z") }}{% endif %}

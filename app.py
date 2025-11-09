@@ -49,6 +49,7 @@ def index():
     days_elapsed = None
     days_total = None
     percent = None
+    show_hr_min = False
 
     if target:
         delta = target - now
@@ -69,6 +70,10 @@ def index():
         days_total = (int(total_sec) + 86400 - 1) // 86400 if total_sec > 0 else 0
         days_elapsed = min(days_total, int(elapsed_sec) // 86400)
 
+    if days_remaining < 30:
+        show_hr_min = True
+
+
     return render_template(
         "index.html",
         title=title,
@@ -77,6 +82,7 @@ def index():
         days_remaining=days_remaining,
         hours_remaining=hours_remaining,
         minutes_remaining=minutes_remaining,
+        show_hr_min=show_hr_min,
         days_elapsed=days_elapsed,
         days_total=days_total,
         percent=percent,
