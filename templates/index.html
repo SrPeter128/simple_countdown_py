@@ -28,7 +28,7 @@
 
   {% if target %}
     <div class="big">{{ days_remaining }}</div>
-    <div>Tage verbleiben</div>
+    <div>Tage verbleibend</div>
     <div class="row muted">
       Bis: {{ target.astimezone().strftime("%d.%m.%Y %H:%M %Z") }}
       {% if start %} • Start: {{ start.astimezone().strftime("%d.%m.%Y %H:%M %Z") }}{% endif %}
@@ -47,6 +47,6 @@
     <p>Noch kein Ziel gesetzt.</p>
   {% endif %}
 
-  <p><a class="btn" href="{{ url_for('admin') }}">Admin</a></p>
+  <p><a class="btn" href="{{ url_for('admin') }}">Ändern</a></p>
 </div>
 
