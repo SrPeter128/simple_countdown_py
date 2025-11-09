@@ -1,0 +1,44 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="300">
+<title>{{ title }}</title>
+<style>
+  :root { --radius: 16px; }
+  body { font: 18px system-ui, sans-serif; display:grid; place-items:center; min-height:100dvh; }
+  .card { padding:2rem; border-radius:1rem; box-shadow:0 10px 30px rgba(0,0,0,.1); text-align:center; width:min(720px, 92vw); }
+  h1 { margin:0 0 .25rem }
+  .big { font-size: clamp(48px, 12vw, 120px); margin:.25rem 0 }
+  .muted { color:#666 }
+  .row { margin:.25rem 0 }
+  .bar-wrap { margin:1rem 0; background:#eee; border-radius: var(--radius); overflow:hidden; height:20px; }
+  .bar { height:100%; width:0%; background: linear-gradient(90deg, #66a6ff, #7bd389); }
+  .legend { display:flex; justify-content:space-between; font-size:14px; color:#444; }
+  a.btn { display:inline-block; margin-top:1rem; padding:.5rem .9rem; border-radius:.6rem; text-decoration:none; background:#f5f5f5; color:#111; }
+</style>
+<div class="card">
+  <h1>{{ title }}</h1>
+
+  {% if target %}
+    <div class="big">{{ days_remaining }}</div>
+    <div>Tage verbleiben</div>
+    <div class="row muted">
+      Bis: {{ target.astimezone().strftime("%d.%m.%Y %H:%M %Z") }}
+      {% if start %} • Start: {{ start.astimezone().strftime("%d.%m.%Y %H:%M %Z") }}{% endif %}
+    </div>
+
+    {% if percent is not none and days_total is not none %}
+      <div class="bar-wrap" aria-label="Fortschritt" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ percent|int }}">
+        <div class="bar" style="width: {{ percent }}%"></div>
+      </div>
+      <div class="legend">
+        <div>{{ days_elapsed }} / {{ days_total }} Tage</div>
+        <div>{{ percent }}%</div>
+      </div>
+    {% endif %}
+  {% else %}
+    <p>Noch kein Ziel gesetzt.</p>
+  {% endif %}
+
+  <p><a class="btn" href="{{ url_for('admin') }}">Admin</a></p>
+</div>
+

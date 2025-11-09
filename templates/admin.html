@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Countdown konfigurieren</title>
+<style>
+  body{font:16px system-ui,sans-serif;max-width:640px;margin:3rem auto;padding:0 1rem}
+  form{display:grid;gap:1rem}
+  label{display:grid;gap:.35rem}
+  input{font:inherit;padding:.5rem;border:1px solid #ccc;border-radius:.5rem}
+  button{font:inherit;padding:.6rem 1rem;border:0;border-radius:.6rem;background:#111;color:#fff}
+  a{color:#111}
+</style>
+<h1>Countdown konfigurieren</h1>
+<form method="post">
+  <label>Titel
+    <input name="title" required>
+  </label>
+  <label>Start (Europe/Berlin)
+    <input type="datetime-local" name="datetime_start" required>
+  </label>
+  <label>Ziel (Europe/Berlin)
+    <input type="datetime-local" name="datetime_target" required>
+  </label>
+  <button type="submit">Speichern</button>
+</form>
+<p><a href="/">Zurück</a></p>
+
