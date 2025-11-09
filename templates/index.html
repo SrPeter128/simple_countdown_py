@@ -1,11 +1,19 @@
 <!doctype html>
 <meta charset="utf-8">
 <meta http-equiv="refresh" content="300">
-<title>{{ title }}</title>
+<title>{{ Countdown }}</title>
 <style>
   :root { --radius: 16px; }
-  body { font: 18px system-ui, sans-serif; display:grid; place-items:center; min-height:100dvh; }
-  .card { padding:2rem; border-radius:1rem; box-shadow:0 10px 30px rgba(0,0,0,.1); text-align:center; width:min(720px, 92vw); }
+  body { font: 18px system-ui, sans-serif; display:grid; place-items:center; min-height:100dvh; 
+  background-image: url("/static/background.png");
+  background-size: cover;        /* Bild ausfüllen */
+  background-position: center;   /* mittig */
+  background-repeat: no-repeat;  /* nicht kacheln */}
+  .card { padding:2rem; 
+    border-radius:1rem; 
+    box-shadow:0 10px 30px rgba(0,0,0,.1); 
+    text-align:center; width:min(720px, 92vw);
+    background: #fff; }
   h1 { margin:0 0 .25rem }
   .big { font-size: clamp(48px, 12vw, 120px); margin:.25rem 0 }
   .muted { color:#666 }
