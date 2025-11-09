@@ -15,12 +15,6 @@ def _init_db():
                      target_utc TEXT,
                      start_utc TEXT
         )""")
-        # Falls die Tabelle schon ohne start_utc existierte: Spalte hinzufügen
-        cols = {row[1] for row in c.execute("PRAGMA table_info(cfg)").fetchall()}
-        if "start_utc" not in cols:
-            c.execute("ALTER TABLE cfg ADD COLUMN start_utc TEXT")
-
-_init_db()
 
 def get_cfg():
     with sqlite3.connect(DB) as c:
@@ -57,14 +51,12 @@ def index():
     percent = None
 
     if target:
-        # Tage verbleiben (auf volle Tage aufrunden, min 0)
         delta = target - now
         seconds = max(0, int(delta.total_seconds()))
         days_remaining = (seconds + 86400 - 1) // 86400
 
     if start and target:
         total_sec = max(0, (target - start).total_seconds())
-        # elapsed vor Start = 0; nach Ziel >= total
         elapsed_sec = (now - start).total_seconds()
         elapsed_sec = max(0, min(elapsed_sec, total_sec))  # clamp
         if total_sec > 0:
@@ -72,7 +64,6 @@ def index():
         else:
             percent = 100.0
 
-        # Ganze Tage (elapsed nach oben begrenzen)
         days_total = (int(total_sec) + 86400 - 1) // 86400 if total_sec > 0 else 0
         days_elapsed = min(days_total, int(elapsed_sec) // 86400)
 
@@ -97,9 +88,7 @@ def admin():
         target_local = datetime.fromisoformat(dt_target_str).replace(tzinfo=TZ)
         start_local = datetime.fromisoformat(dt_start_str).replace(tzinfo=TZ)
 
-        # Optional: Sicherheitsnetz – Start darf nicht nach Ziel liegen
         if start_local > target_local:
-            # Tauschen, falls vertauscht eingegeben
             start_local, target_local = target_local, start_local
 
         set_cfg(title, target_local, start_local)
@@ -107,5 +96,6 @@ def admin():
     return render_template("admin.html")
 
 if __name__ == "__main__":
+    _init_db()
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
 
