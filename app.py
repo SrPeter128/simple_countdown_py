@@ -53,7 +53,9 @@ def index():
     if target:
         delta = target - now
         seconds = max(0, int(delta.total_seconds()))
-        days_remaining = (seconds + 86400 - 1) // 86400
+        days_remaining = seconds // 86400
+        hours_remaining = (((seconds + 86400 - 1) % 86400) // 60) // 60
+        minutes_remaining = ((seconds + 86400 - 1) // 60) % 60
 
     if start and target:
         total_sec = max(0, (target - start).total_seconds())
@@ -73,6 +75,8 @@ def index():
         target=target,
         start=start,
         days_remaining=days_remaining,
+        hours_remaining=hours_remaining,
+        minutes_remaining=minutes_remaining,
         days_elapsed=days_elapsed,
         days_total=days_total,
         percent=percent,
