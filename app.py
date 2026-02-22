@@ -69,6 +69,9 @@ def index():
 
         days_total = (int(total_sec) + 86400 - 1) // 86400 if total_sec > 0 else 0
         days_elapsed = min(days_total, int(elapsed_sec) // 86400)
+    
+    if target == None: 
+        return redirect(url_for("admin"))
 
     if days_remaining < 30:
         show_hr_min = True
